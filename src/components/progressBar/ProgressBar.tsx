@@ -5,7 +5,6 @@ const steps = ["personalinfo", "financialnfio", "situation"];
 
 interface Props {
   activeStep: number;
-  isMobile: boolean;
 }
 
 /*  
@@ -19,6 +18,7 @@ const ProgressBar = ({ activeStep }: Props) => {
   return (
     <Box>
       <Stepper
+        sx={{mt:4}}
         activeStep={activeStep}
         alternativeLabel
       >

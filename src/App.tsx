@@ -15,7 +15,6 @@ import "dayjs/locale/ar";
 import "dayjs/locale/en";
 
 import { useMemo, useEffect } from "react";
-import ErrorBoundary from "./components/errorBoundry/ErrorBoundry";
 
 function App() {
   const { i18n } = useTranslation();
@@ -63,7 +62,6 @@ function App() {
   }, [isRTL]);
 
   return (
-    <ErrorBoundary>
       <CacheProvider value={cache}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -76,7 +74,6 @@ function App() {
           </LocalizationProvider>
         </ThemeProvider>
       </CacheProvider>
-    </ErrorBoundary>
   );
 }
 

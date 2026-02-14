@@ -1,12 +1,7 @@
 import { lazy } from "react";
-import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBar from "../components/progressBar/ProgressBar";
-import {
-  selectApplicationCurrentStep,
-  selectApplicationErrorMessage,
-  selectApplicationLading,
-} from "../features/application/applicaionSelector";
+import { selectApplicationCurrentStep } from "../features/application/applicaionSelector";
 import {
   resetApplication,
   setCurrentApplicationStep,
@@ -14,8 +9,6 @@ import {
   setLoading,
 } from "../features/application/applicationSlice";
 import { clearStorage } from "../utils/localStorage";
-import Loader from "../components/loader/Loader";
-import { ErrorAlert } from "../components/errorAlert/ErrorAlert";
 import { useNavigate } from "react-router-dom";
 import { submitData } from "../services/application.service";
 import type { SituationDetails } from "../features/application/types";
@@ -38,13 +31,8 @@ const SituationDetails = lazy(
 const ApplicationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   /* All reuired state selector */
   const currentStep = useSelector(selectApplicationCurrentStep);
-  const isLoading = useSelector(selectApplicationLading);
-  const errorMessage = useSelector(selectApplicationErrorMessage);
-
   /*
    * updateAplicationStep
    * Method to update step number to redux state move next and back
@@ -77,12 +65,11 @@ const ApplicationPage = () => {
       <Container
         maxWidth="md"
         sx={{
-          px: { xs: 2, sm: 2 },
-          py: { xs: 3, sm: 2 },
+          px: { xs: 1, sm: 2 },
+          py: { xs: 1, sm: 1 },
         }}
       >
-        <ProgressBar activeStep={currentStep} isMobile={isMobile} />
-        <Box mt={{ xs: 3, sm: 5 }}>
+        <Box mt={{ xs: 1, sm: 1 }}>
           {currentStep === 0 && (
             <PersonalDetails onNext={() => updateAplicationStep(1)} />
           )}
@@ -95,15 +82,11 @@ const ApplicationPage = () => {
           {currentStep === 2 && (
             <SituationDetails
               onBack={() => updateAplicationStep(1)}
-              onSubmitFinal={() =>
-                submitDetails()
-              }
+              onSubmitFinal={() => submitDetails()}
             />
           )}
         </Box>
       </Container>
-      <Loader loading={isLoading} />
-      <ErrorAlert errorMessage={errorMessage}></ErrorAlert>
     </>
   );
 };

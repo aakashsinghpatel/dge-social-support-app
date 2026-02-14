@@ -143,6 +143,9 @@ const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
           variant="h6"
           component="h4"
           gutterBottom
+          sx={{
+            py: { xs: 1 },
+          }}
         >
           {t("situation")}
         </Typography>

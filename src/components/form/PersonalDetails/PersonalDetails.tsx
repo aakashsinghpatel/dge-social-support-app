@@ -80,6 +80,9 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
         variant="h6"
         component="h4"
         gutterBottom
+        sx={{
+          py: { xs: 1 },
+        }}
       >
         {t("personalinfo")}
       </Typography>

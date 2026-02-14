@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
+import ErrorBoundry from "./components/errorBoundry/ErrorBoundry";
 import "./i18n";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ErrorBoundry>
+        <App />
+      </ErrorBoundry>
     </Provider>
   </React.StrictMode>,
 );

@@ -89,6 +89,9 @@ const FamilyFinancialDetails = ({ onNext, onBack }: FamilyFinancialDetailsProps)
         variant="h6"
         component="h4"
         gutterBottom
+        sx={{
+          py: { xs: 1 },
+        }}
       >
         {t("financialnfio")}
       </Typography>

@@ -23,7 +23,7 @@ export const createPersonalDetailsSchema = (t: (k: string) => string) =>
      ** nationalId field validation
      * String
      * UAE national id validation
-     * 15-ALphanumeric, start with 784-> 11 numbers -> end with 'Z'  character
+     * 15-ALphanumeric, start with 784-> 11 numbers -> end with sinle numberr
      * minimum length 2 charater
      * max length character
      */
@@ -31,7 +31,7 @@ export const createPersonalDetailsSchema = (t: (k: string) => string) =>
       .string()
       .trim()
       .regex(
-        /^[784][0-9]\d{4}[0-9]\d{7}[Z]$/,
+        /^[784][0-9]\d{4}[0-9]\d{7}[0-9]{1}$/,
         t("validationError.personalInfo.nationalId.invalid"),
       ),
 
@@ -184,11 +184,11 @@ export const createFamilyFinanceDetailsSchema = (t: (key: string) => string) =>
         }),
     ),
     /* Housing status status field validation
-     * should be valid non-empty string
+     * should be valid non-empty string of min length 10
      */
-    housingStatus: z.string().refine((val) => !!val, {
-      message: t("validationError.financialInfo.housingStatus.required"),
-    }),
+    housingStatus: z.string()
+      .min(10, t("validationError.financialInfo.housingStatus.required"),
+    ),
   });
 
 /*
