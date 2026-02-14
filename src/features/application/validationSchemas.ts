@@ -147,7 +147,7 @@ export const createFamilyFinanceDetailsSchema = (t: (key: string) => string) =>
       }),
 
     /* dependents field validation
-     * should be valid number, with minimum 1
+     * should be valid number, with minimum 0
      */
     dependents: z.preprocess(
       (val) => {
@@ -168,7 +168,7 @@ export const createFamilyFinanceDetailsSchema = (t: (key: string) => string) =>
         message: t("validationError.financialInfo.employmentStatus.required"),
       }),
     /* Monthly income field validation
-     *  should be valid number, with minimum 1
+     *  should be valid number, with minimum 0
      */
     monthlyIncome: z.preprocess(
       (val) => {
