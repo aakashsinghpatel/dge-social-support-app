@@ -56,7 +56,7 @@
         "max":"Name is too long"
       },
       "nationalId":{
-        "invalid":"National ID must be 15 alphanumeric Valid characters"
+        "invalid":"National ID (UAE) must be 15 alphanumeric Valid characters"
       },
       "dob":{
         "required":"Invalid DOB",
@@ -84,7 +84,7 @@
         "min":"County is required"
       },
       "phone":{
-        "invalid":"Enter Valid phone number"
+        "invalid":"Enter Valid phone number (UAE Number)"
       },
       "email":{
         "invalid":"Enter valid email"
