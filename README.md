@@ -212,10 +212,15 @@ Before proceeding with the installation, ensure you have the following prerequis
 ```bash
   npm install
 ```
-4. Environment Variables Setup
+4. Environment Variables Setup (Windows)
 
 This project requires environment variables.
 Create a .env file in the root directory by copying the example file:
+# Windows-
+```bash 
+copy .env.example .env
+```
+# Mac
 ```bash 
 cp .env.example .env
 ```
