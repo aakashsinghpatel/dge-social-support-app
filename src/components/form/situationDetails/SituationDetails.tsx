@@ -19,7 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { generateAIText } from "../../../services/openai";
-import AIHelperModal from "../../aiHelperDialog/AIHelperModal";
+import AIHelperModal from "../../aiHelperModal/AIHelperModal";
 import {
   selectFamilyFinanceDetails,
   selectSituationDetails,

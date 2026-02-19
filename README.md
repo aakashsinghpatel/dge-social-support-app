@@ -116,14 +116,14 @@ social-support-assignment
 │ ├─ App.tsx
 │ ├─ main.tsx
 │ ├─ components
-│ │ ├─ aiHelperDialog
-│ │ │ ├─ AIHelperDialog.tsx
-│ │ │ ├─ AIHelperDialog.test.tsx
+│ │ ├─ aiHelperModal
+│ │ │ ├─ AIHelperModal.tsx
+│ │ │ ├─ AIHelperModal.test.tsx
 │ │ ├─ errorAlert
 │ │ │ ├─ ErrorAlert.tsx
 │ │ │ ├─ ErrorAlert.test.tsx
-│ │ ├─ errorBoundry
-│ │ │ ├─ ErrorBoundry.tsx
+│ │ ├─ errorBoundary
+│ │ │ ├─ ErrorBoundary.tsx
 │ │ ├─ languageSwitcher
 │ │ │ ├─ LanguageSwitcher.tsx
 │ │ │ ├─ LanguageSwitcher.test.tsx
@@ -272,7 +272,9 @@ Fix linting issues automatically:
 ```
 
 ### Screenshots
+
 **English**
+
 <section style="display: flex; height: 200px; padding: 5px;margin-bottom:20px;">
   <img alt="Personal Details" src="/public/screenshots/Desktop-Personal.png">
 </section>
@@ -291,7 +293,9 @@ Fix linting issues automatically:
 <section style="display: flex; height: 200px; padding: 5px;margin-bottom:20px;">
 <img alt="Not Found Page" src="/public/screenshots/404.png">
 </section>
+
 **Arabic**
+
 <section style="display: flex; height: 200px; padding: 5px;margin-bottom:20px;">
   <img alt="Personal Arabic" src="/public/screenshots/Destop-Personal-Arabic.png">
 </section>
