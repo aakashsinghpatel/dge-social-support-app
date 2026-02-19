@@ -1,37 +1,26 @@
-# \[Social Support Assignment\]
+# Social Support Assignment
 The Social Support Application is React-based responsive multi-step form platform that allows individuals to apply for financial assistance.  
 The app collects personal, family, and financial details, and integrates AI assistance to help users describe their situation clearly.
 
 
 ## Table of Contents
 
-    <ol>
-        <li>
-        <a href="#tech-stack">Tech Stack</a>
-        </li>
-        <li><a href="#features">Features</a></li>
-        <li>
-        <a href="#motivation-of-choices-on-implementation">Motivation of Choices on Implementation</a>
-        <ul>
-            <li><a href="#project-structure-overview">Project Structure Overview</a></li>
-            <li><a href="#hierarchical-organization">Hierarchical Organization</a></li>
-            <li><a href="#overall-benefits">Overall Benefits</a></li>
-        </ul>
-        </li>
-        <li><a href="#project-architecture">Project Architecture</a></li>
-        <li><a href="#project-folder-structure">Project Folder Structure</a></li>
-        <li><a href="#installation">Installation</a></li>
-        <li>
-        <a href="#usage">Usage</a>
-        <ul>
-            <li><a href="#development">Development</a></li>
-            <li><a href="#build">Build</a></li>
-            <li><a href="#unit-testing">Unit Testing</a></li>
-            <li><a href="#code-linting">Code Linting</a></li>
-        </ul>
-        </li>
-        <li><a href="#screenshots">Screenshots</a></li>
-    </ol>
+1. [Tech Stack](#tech-stack)
+2. [Features](#features)
+3. [Motivation of Choices on Implementation](#motivation-of-choices-on-implementation)
+   - [Project Structure Overview](#project-structure-overview)
+   - [Hierarchical Organization](#hierarchical-organization)
+   - [Overall Benefits](#overall-benefits)
+4. [Project Architecture](#project-architecture)
+5. [Project Folder Structure](#project-folder-structure)
+6. [Installation](#installation)
+7. [Usage](#usage)
+   - [Development](#development)
+   - [Build](#build)
+   - [Unit Testing](#unit-testing)
+   - [Code Linting](#code-linting)
+8. [Screenshots](#screenshots)
+
 
 ## Tech Stack
 
@@ -100,19 +89,21 @@ It manages language setup and supports multi-language functionality including RT
 
 **High level Diagram**
 
-<section style="display: flex; height: 461px; padding: 5px;">
+<section style="display: flex; height: 250px; padding: 5px;">
 <img alt="Desktop Home Page" src="/public/assets/high-level.png">
 </section>
 
+
 **Component Heirarchy**
 
-<section style="display: flex; height: 461px; padding: 5px;">
+<section style="display: flex; height: 250px; padding: 5px;">
 <img alt="Desktop Home Page" src="/public/assets/component-heirarchy.png">
 </section>
 
+
 **Data flow Diagram**
 
-<section style="display: flex; height: 461px; padding: 5px;">
+<section style="display: flex; height: 250px; padding: 5px;">
 <img alt="Desktop Home Page" src="/public/assets/dfd.png">
 </section>
 
