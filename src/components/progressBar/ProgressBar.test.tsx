@@ -5,7 +5,7 @@ import ProgressBar from "./ProgressBar";
 // Mock i18next translation HOC
 jest.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (key: string) => key, // simply return the key for testing
+    translate: (key: string) => key,
   }),
 }));
 

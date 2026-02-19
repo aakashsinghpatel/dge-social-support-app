@@ -4,8 +4,8 @@ import axios, { AxiosError } from "axios";
 * It contains all configuration for axios
 */
 
-/* Create openAI cliet of axios to handle open AI call */
-const OpenAiclient = axios.create({
+/* Create openAI client of axios to handle open AI call */
+const OpenAiClient = axios.create({
   baseURL: `${import.meta.env.VITE_OPENAI_BASE_URL}`,
   timeout: 10000,
   headers: {
@@ -15,9 +15,9 @@ const OpenAiclient = axios.create({
 });
 
 /*
-* Error handler : Handel varius error code, Timeout etc
+* Error handler : Handle various error code, Timeout etc
 * It handle all error based on status code and return error message accordingly
-* used for OpenAIClient
+* used for OpenAiClient
 */
 const erroHandler = (error: AxiosError) => {
   let message = "Something went wrong";
@@ -61,7 +61,7 @@ const erroHandler = (error: AxiosError) => {
 };
 
 /* OpenAI client interceptors */
-OpenAiclient.interceptors.request.use(
+OpenAiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -72,10 +72,10 @@ OpenAiclient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-OpenAiclient.interceptors.response.use(
+OpenAiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => erroHandler(error),
 );
 
 
-export { OpenAiclient };
+export { OpenAiClient };

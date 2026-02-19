@@ -13,7 +13,7 @@ interface Props {
 * Complete & non completed
 */
 const ProgressBar = ({ activeStep }: Props) => {
-  const { t } = useTranslation();
+  const { t:translate  } = useTranslation();
 
   return (
     <Box>
@@ -24,7 +24,7 @@ const ProgressBar = ({ activeStep }: Props) => {
       >
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel>{t(label)}</StepLabel>
+            <StepLabel>{translate(label)}</StepLabel>
           </Step>
         ))}
       </Stepper>

@@ -15,10 +15,10 @@ const AppRouter = () => {
       <Routes>
         {/* Main Layout Wrapper */}
         <Route element={<MainLayout />}>
-          {/* Application Wizard Page */}
+          {/* Application Page */}
           <Route path="/" element={<ApplicationPage />} />
         </Route>
-          {/* Success Wizard Page */}
+          {/* Success Page */}
         <Route path="/success" element={<Success />} />
         {/* 404 Page */}
         <Route path="*" element={<NotFound/>} />

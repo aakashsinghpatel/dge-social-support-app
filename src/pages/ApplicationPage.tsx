@@ -26,16 +26,16 @@ const SituationDetails = lazy(
 
 /*
  * ApplicationPage - Main page of application
- * This page have flow add control for all form (Personal, FamilyFinance & Situation)
+ * This page has control for all form (Personal, FamilyFinance & Situation)
  */
 const ApplicationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  /* All reuired state selector */
+  /* All required state selector */
   const currentStep = useSelector(selectApplicationCurrentStep);
   /*
    * updateAplicationStep
-   * Method to update step number to redux state move next and back
+   * Method to update step number to redux state for moving next and back
    */
   const updateAplicationStep = (step: number) => {
     dispatch(setCurrentApplicationStep(step));
@@ -60,6 +60,30 @@ const ApplicationPage = () => {
     }
   };
 
+  /* Render the form based on current step */
+  const renderStepForm = () => {
+    switch (currentStep) {
+      case 0:
+        return <PersonalDetails onNext={() => updateAplicationStep(1)} />;
+      case 1:
+        return (
+          <FamilyFinancialDetails
+            onNext={() => updateAplicationStep(2)}
+            onBack={() => updateAplicationStep(0)}
+          />
+        );
+      case 2:
+        return (
+          <SituationDetails
+            onBack={() => updateAplicationStep(1)}
+            onSubmitFinal={submitDetails}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Container
@@ -70,21 +94,7 @@ const ApplicationPage = () => {
         }}
       >
         <Box mt={{ xs: 1, sm: 1 }}>
-          {currentStep === 0 && (
-            <PersonalDetails onNext={() => updateAplicationStep(1)} />
-          )}
-          {currentStep === 1 && (
-            <FamilyFinancialDetails
-              onNext={() => updateAplicationStep(2)}
-              onBack={() => updateAplicationStep(0)}
-            />
-          )}
-          {currentStep === 2 && (
-            <SituationDetails
-              onBack={() => updateAplicationStep(1)}
-              onSubmitFinal={() => submitDetails()}
-            />
-          )}
+          {renderStepForm()}
         </Box>
       </Container>
     </>

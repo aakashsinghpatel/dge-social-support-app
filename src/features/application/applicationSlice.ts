@@ -47,7 +47,7 @@ const initialState: ApplicationState = {
   errorMessage: null,
 };
 
-/* Reducer of name 'application with all actions to update application state*/
+/* Reducer of application with all action to update application state*/
 const applicationSlice = createSlice({
   name: "application",
   initialState,

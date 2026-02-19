@@ -6,7 +6,7 @@ type LoadingProps = {
 /*
  * Loader
  * Component to show while make submit API call
- * To blur backgroung and make all field and btn no active
+ * To blur background and make all field and button non-active
  */
 const Loader = ({ loading }: LoadingProps) => {
   return (

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
  */
 export default function NotFound() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t:translate } = useTranslation();
 
   return (
     <Container
@@ -33,15 +33,15 @@ export default function NotFound() {
           fontWeight="bold"
           color="primary"
         >
-          {t("error.heading")}
+          {translate("error.heading")}
         </Typography>
 
         <Typography variant="h5" mt={2}>
-          {t("error.subHeading")}
+          {translate("error.subHeading")}
         </Typography>
 
         <Typography variant="body1" color="text.secondary" mt={1}>
-          {t("error.message")}
+          {translate("error.message")}
         </Typography>
         <Button
           variant="contained"
@@ -49,7 +49,7 @@ export default function NotFound() {
           sx={{ mt: 4 }}
           onClick={() => navigate("/")}
         >
-          {t("backToHome")}
+          {translate("backToHome")}
         </Button>
       </Box>
     </Container>

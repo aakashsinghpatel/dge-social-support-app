@@ -28,7 +28,7 @@ const FamilyFinancialDetails = ({
   onNext,
   onBack,
 }: FamilyFinancialDetailsProps) => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -44,7 +44,7 @@ const FamilyFinancialDetails = ({
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(createFamilyFinanceDetailsSchema(t)),
+    resolver: zodResolver(createFamilyFinanceDetailsSchema(translate)),
     defaultValues: financialData || {},
   });
 
@@ -57,7 +57,7 @@ const FamilyFinancialDetails = ({
 
   /*
    * onSubmit
-   * Method to save finaceDetail on click of next button to store and local storage
+   * Method to save finaceDetails on click of next button to store and local storage
    */
   const onSubmit = (data: FamilyFinanceDetailsType) => {
     dispatch(saveFamilyFinanceDetails(data));
@@ -81,25 +81,11 @@ const FamilyFinancialDetails = ({
     }
   };
 
-  return (
-    <Box
-      component="main"
-      aria-labelledby="family-financial-details-heading"
-      aria-hidden="false"
-    >
-      <Typography
-        id="family-financial-details-heading"
-        variant="h6"
-        component="h4"
-        gutterBottom
-        sx={{
-          py: { xs: 1 },
-        }}
-      >
-        {t("financialnfio")}
-      </Typography>
-      {/* Family and financial detail form */}
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+  /* renderFamilyFinancialDetailsForm
+  * Return Form UI
+  */
+  const renderFamilyFinancialDetailsForm = () => {
+    return(<form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={2}>
           {/* Marital Status */}
           <Grid size={{ xs: 12, sm: 6 }}>
@@ -109,16 +95,16 @@ const FamilyFinancialDetails = ({
               defaultValue={financialData?.maritalStatus || ""}
               render={({ field }) => (
                 <TextField
-                  {...field} // provides value & onChange
+                  {...field}
                   select
-                  label={t("maritalStatus")}
+                  label={translate("maritalStatus")}
                   fullWidth
                   error={!!errors.maritalStatus}
                   helperText={errors.maritalStatus?.message as string}
                 >
                   <MenuItem value="">Select</MenuItem>
-                  <MenuItem value="single">{t("single")}</MenuItem>
-                  <MenuItem value="married">{t("married")}</MenuItem>
+                  <MenuItem value="single">{translate("single")}</MenuItem>
+                  <MenuItem value="married">{translate("married")}</MenuItem>
                 </TextField>
               )}
             />
@@ -128,7 +114,7 @@ const FamilyFinancialDetails = ({
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               type="number"
-              label={t("dependents")}
+              label={translate("dependents")}
               fullWidth
               onKeyDown={handleOnKeyDown}
               {...register("dependents", { valueAsNumber: true })}
@@ -147,14 +133,14 @@ const FamilyFinancialDetails = ({
                 <TextField
                   {...field} // provides value & onChange
                   select
-                  label={t("employmentStatus")}
+                  label={translate("employmentStatus")}
                   fullWidth
                   error={!!errors.employmentStatus}
                   helperText={errors.employmentStatus?.message as string}
                 >
                   <MenuItem value="">Select</MenuItem>
-                  <MenuItem value="employed">{t("employed")}</MenuItem>
-                  <MenuItem value="unemployed">{t("unemployed")}</MenuItem>
+                  <MenuItem value="employed">{translate("employed")}</MenuItem>
+                  <MenuItem value="unemployed">{translate("unemployed")}</MenuItem>
                 </TextField>
               )}
             />
@@ -164,7 +150,7 @@ const FamilyFinancialDetails = ({
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               type="number"
-              label={t("monthlyIncome")}
+              label={translate("monthlyIncome")}
               fullWidth
               onKeyDown={handleOnKeyDown}
               {...register("monthlyIncome", { valueAsNumber: true })}
@@ -176,7 +162,7 @@ const FamilyFinancialDetails = ({
           {/* Housing Status */}
           <Grid size={12}>
             <TextField
-              label={t("housingStatus")}
+              label={translate("housingStatus")}
               fullWidth
               {...register("housingStatus")}
               error={!!errors.housingStatus}
@@ -194,7 +180,7 @@ const FamilyFinancialDetails = ({
             sx={{ mr: 2 }}
             aria-label="back"
           >
-            {t("back")}
+            {translate("back")}
           </Button>
 
           <Button
@@ -203,10 +189,31 @@ const FamilyFinancialDetails = ({
             fullWidth={isMobile}
             aria-label="Next Step"
           >
-            {t("next")}
+            {translate("next")}
           </Button>
         </Box>
-      </form>
+      </form>)
+  }
+
+  return (
+    <Box
+      component="main"
+      aria-labelledby="family-financial-details-heading"
+      aria-hidden="false"
+    >
+      <Typography
+        id="family-financial-details-heading"
+        variant="h6"
+        component="h4"
+        gutterBottom
+        sx={{
+          py: { xs: 1 },
+        }}
+      >
+        {translate("financialnfio")}
+      </Typography>
+      {/* Family and financial details form */}
+      {renderFamilyFinancialDetailsForm()}
     </Box>
   );
 };

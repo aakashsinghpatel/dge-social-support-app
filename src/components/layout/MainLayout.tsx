@@ -12,10 +12,10 @@ import { ErrorAlert } from "../errorAlert/ErrorAlert";
 
 /*
  * MainLayout
- * Main layout under while all paget/component renders : Durinng routins
+ * Main layout under while all paget/component renders : During routing
  */
 const MainLayout = () => {
-  /* All reuired state selector */
+  /* All required state selector */
   const currentStep = useSelector(selectApplicationCurrentStep);
   const isLoading = useSelector(selectApplicationLading);
   const errorMessage = useSelector(selectApplicationErrorMessage);

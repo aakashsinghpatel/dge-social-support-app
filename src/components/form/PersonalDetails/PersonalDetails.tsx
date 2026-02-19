@@ -28,7 +28,7 @@ type PersonalDetailsProps = {
 };
 
 const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
-  const { t } = useTranslation();
+  const { t:translate } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -44,7 +44,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(createPersonalDetailsSchema(t)),
+    resolver: zodResolver(createPersonalDetailsSchema(translate)),
     defaultValues: personalData,
   });
 
@@ -69,30 +69,20 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
     onNext();
   };
 
-  return (
-    <Box
-      component="main"
-      aria-labelledby="personal-details-heading"
-      aria-hidden="false"
-    >
-      <Typography
-        id="personal-details-heading"
-        variant="h6"
-        component="h4"
-        gutterBottom
-        sx={{
-          py: { xs: 1 },
-        }}
-      >
-        {t("personalinfo")}
-      </Typography>
-      {/* Personal Detail form */}
+  /* renderPersonalDetailsForm
+   * Return Form UI
+   */
+  const renderPersonalDetailsForm = () => {
+    {
+      /* Personal Detail form */
+    }
+    return (
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Grid container spacing={2} className="newcalss">
           {/* Name field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("name")}
+              label={translate("name")}
               fullWidth
               {...register("name")}
               error={!!errors.name}
@@ -102,7 +92,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* National ID field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("nationalId")}
+              label={translate("nationalId")}
               fullWidth
               {...register("nationalId")}
               error={!!errors.nationalId}
@@ -121,7 +111,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
                       direction: "ltr",
                     },
                   }}
-                  label={t("dob")}
+                  label={translate("dob")}
                   format="DD/MM/YYYY"
                   value={field.value ? dayjs(field.value) : null}
                   onChange={(newValue) => field.onChange(newValue)}
@@ -148,23 +138,22 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
                 <TextField
                   {...field}
                   select
-                  label={t("gender")}
+                  label={translate("gender")}
                   fullWidth
                   error={!!errors.gender}
                   helperText={errors.gender?.message as string}
                 >
-                  <MenuItem value="male">{t("male")}</MenuItem>
-                  <MenuItem value="female">{t("female")}</MenuItem>
-                  <MenuItem value="other">{t("other")}</MenuItem>
+                  <MenuItem value="male">{translate("male")}</MenuItem>
+                  <MenuItem value="female">{translate("female")}</MenuItem>
+                  <MenuItem value="other">{translate("other")}</MenuItem>
                 </TextField>
               )}
             />
           </Grid>
-
           {/* Address Field */}
           <Grid size={{ xs: 12 }}>
             <TextField
-              label={t("address")}
+              label={translate("address")}
               multiline
               rows={2}
               fullWidth
@@ -176,7 +165,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* City Field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("city")}
+              label={translate("city")}
               fullWidth
               {...register("city")}
               error={!!errors.city}
@@ -186,7 +175,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* State Field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("state")}
+              label={translate("state")}
               fullWidth
               {...register("state")}
               error={!!errors.state}
@@ -196,7 +185,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* Country Field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("country")}
+              label={translate("country")}
               fullWidth
               {...register("country")}
               error={!!errors.country}
@@ -206,7 +195,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* Phone field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("phone")}
+              label={translate("phone")}
               fullWidth
               {...register("phone")}
               error={!!errors.phone}
@@ -216,7 +205,7 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
           {/* Email Field */}
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
-              label={t("email")}
+              label={translate("email")}
               fullWidth
               {...register("email")}
               error={!!errors.email}
@@ -233,10 +222,31 @@ const PersonalDetails = ({ onNext }: PersonalDetailsProps) => {
             fullWidth={isMobile}
             aria-label="Next Step"
           >
-            {t("next")}
+            {translate("next")}
           </Button>
         </Box>
       </form>
+    );
+  };
+
+  return (
+    <Box
+      component="main"
+      aria-labelledby="personal-details-heading"
+      aria-hidden="false"
+    >
+      <Typography
+        id="personal-details-heading"
+        variant="h6"
+        component="h4"
+        gutterBottom
+        sx={{
+          py: { xs: 1 },
+        }}
+      >
+        {translate("personalinfo")}
+      </Typography>
+      {renderPersonalDetailsForm()}
     </Box>
   );
 };

@@ -34,7 +34,7 @@ export const loadFromStorage = (key: string) => {
 };
 
 /* clearStorage
- * Method to clear/remover all data from localStorage
+ * Method to clear/remove all data from localStorage
  */
 export const clearStorage = () => {
   try {
@@ -45,7 +45,7 @@ export const clearStorage = () => {
 };
 
 /* loadAllStepsData
- * Method to load all form data from localStorage
+ * Method to load all data from localStorage
  */
 export const loadAllStepsData = () => {
   return {

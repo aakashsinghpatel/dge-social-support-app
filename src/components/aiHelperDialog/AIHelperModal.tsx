@@ -23,7 +23,7 @@ type AiModalProps = {
 const AIHelperModal = ({ open, label, suggestion, onAccept, onClose }: AiModalProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(suggestion);
-  const { t } = useTranslation();
+  const { t: translate} = useTranslation();
 
   /* 
   * update text and status on modal close
@@ -70,13 +70,13 @@ const AIHelperModal = ({ open, label, suggestion, onAccept, onClose }: AiModalPr
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={handleClose}>{t("discard")}</Button>
+        <Button onClick={handleClose}>{translate("discard")}</Button>
         {!isEditing && (
-          <Button onClick={() => handleEdit()}>{t("edit")}</Button>
+          <Button onClick={() => handleEdit()}>{translate("edit")}</Button>
         )}
         {
           <Button onClick={handleAccept} variant="contained">
-            {t("accept")}
+            {translate("accept")}
           </Button>
         }
       </DialogActions>

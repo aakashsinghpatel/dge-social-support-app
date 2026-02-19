@@ -38,7 +38,7 @@ type SituationFormFieldType =
   | "reasonForApplying";
 
 const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
-  const { t } = useTranslation();
+  const { t:translate } = useTranslation();
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -63,7 +63,7 @@ const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(createSituationDetailsSchema(t)),
+    resolver: zodResolver(createSituationDetailsSchema(translate)),
     defaultValues: situationData || {},
   });
 
@@ -86,17 +86,17 @@ const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
       let prompt = "";
       if (fieldName == "financialSituation") {
         setLoadingStep(1);
-        setAiModalLabel(t("financialSituation"));
+        setAiModalLabel(translate("financialSituation"));
         prompt = `I am ${familyFinanceDetails.employmentStatus} with ${familyFinanceDetails.monthlyIncome} monthly income, 
         Help me describe my hardship.`;
       } else if (fieldName == "employmentCircumstances") {
         setLoadingStep(2);
-        setAiModalLabel(t("employmentCircumstances"));
+        setAiModalLabel(translate("employmentCircumstances"));
         prompt = `I am ${familyFinanceDetails.employmentStatus} with ${familyFinanceDetails.monthlyIncome} and ${familyFinanceDetails.dependents}, ${familyFinanceDetails.maritalStatus}, ${familyFinanceDetails.housingStatus}.Help me describe my employement circumstances.`;
       }
       if (fieldName == "reasonForApplying") {
         setLoadingStep(3);
-        setAiModalLabel(t("reasonForApplying"));
+        setAiModalLabel(translate("reasonForApplying"));
         prompt = `I am ${familyFinanceDetails.employmentStatus} with ${familyFinanceDetails.monthlyIncome} and ${familyFinanceDetails.dependents}, ${familyFinanceDetails.maritalStatus}, ${familyFinanceDetails.housingStatus}.Help me describe reasion for apply govt finance assistance.`;
       }
       const suggestion = await generateAIText(prompt);
@@ -131,6 +131,130 @@ const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
     onSubmitFinal();
   };
 
+  /* renderSituationDetailsForm
+  * Return Form UI
+  */
+  const renderSituationDetailsForm = () => {
+    return (
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Grid container spacing={2}>
+          {/* Financial Situation Field*/}
+          <Grid size={{ xs: 12 }}>
+            <Controller
+              name="financialSituation"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={translate("financialSituation")}
+                  multiline
+                  rows={4}
+                  fullWidth
+                  error={!!errors.financialSituation}
+                  helperText={errors.financialSituation?.message as string}
+                />
+              )}
+            />
+            {/* Button to ask for AI suggestion for filed */}
+            <Button
+              size="small"
+              onClick={() => handleAI("financialSituation")}
+              disabled={loadingAI}
+            >
+              {loadingAI && loadingStep == 1 ? (
+                <CircularProgress size={18} />
+              ) : (
+                translate("helpWrite")
+              )}
+            </Button>
+          </Grid>
+
+          {/* Employment Circumstances Field */}
+          <Grid size={{ xs: 12 }}>
+            <Controller
+              name="employmentCircumstances"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={translate("employmentCircumstances")}
+                  multiline
+                  rows={4}
+                  fullWidth
+                  error={!!errors.employmentCircumstances}
+                  helperText={errors.employmentCircumstances?.message as string}
+                />
+              )}
+            />
+            {/* Button to ask for AI suggestion for filed */}
+            <Button
+              size="small"
+              onClick={() => handleAI("employmentCircumstances")}
+              disabled={loadingAI}
+            >
+              {loadingAI && loadingStep == 2 ? (
+                <CircularProgress size={18} />
+              ) : (
+                translate("helpWrite")
+              )}
+            </Button>
+          </Grid>
+
+          {/* Reason for Applying field*/}
+          <Grid size={{ xs: 12 }}>
+            <Controller
+              name="reasonForApplying"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label={translate("reasonForApplying")}
+                  multiline
+                  rows={4}
+                  fullWidth
+                  error={!!errors.reasonForApplying}
+                  helperText={errors.reasonForApplying?.message as string}
+                />
+              )}
+            />
+            {/* Button/link to ask for AI suggestion for filed */}
+            <Button
+              size="small"
+              onClick={() => handleAI("reasonForApplying")}
+              disabled={loadingAI}
+            >
+              {loadingAI && loadingStep == 3 ? (
+                <CircularProgress size={18} />
+              ) : (
+                translate("helpWrite")
+              )}
+            </Button>
+          </Grid>
+        </Grid>
+
+        {/* Submit and Back button */}
+        <Box mt={4} display="flex" justifyContent="space-between">
+          <Button
+            variant="outlined"
+            onClick={onBack}
+            fullWidth={isMobile}
+            sx={{ mr: 2 }}
+            aria-label="back"
+          >
+            {translate("back")}
+          </Button>
+
+          <Button type="submit" variant="contained" fullWidth={isMobile}>
+            {translate("submit")}
+          </Button>
+        </Box>
+      </form>
+    );
+  };
+
   return (
     <>
       <Box
@@ -147,127 +271,10 @@ const SituationDetails = ({ onBack, onSubmitFinal }: SituationDetailsProps) => {
             py: { xs: 1 },
           }}
         >
-          {t("situation")}
+          {translate("situation")}
         </Typography>
         {/* Situation detail form */}
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <Grid container spacing={2}>
-            {/* Financial Situation Field*/}
-            <Grid size={{ xs: 12 }}>
-              <Controller
-                name="financialSituation"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={t("financialSituation")}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    error={!!errors.financialSituation}
-                    helperText={errors.financialSituation?.message as string}
-                  />
-                )}
-              />
-              {/* Button to ask for AI suggestion for filed */}
-              <Button
-                size="small"
-                onClick={() => handleAI("financialSituation")}
-                disabled={loadingAI}
-              >
-                {loadingAI && loadingStep == 1 ? (
-                  <CircularProgress size={18} />
-                ) : (
-                  t("helpWrite")
-                )}
-              </Button>
-            </Grid>
-
-            {/* Employment Circumstances Field */}
-            <Grid size={{ xs: 12 }}>
-              <Controller
-                name="employmentCircumstances"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={t("employmentCircumstances")}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    error={!!errors.employmentCircumstances}
-                    helperText={
-                      errors.employmentCircumstances?.message as string
-                    }
-                  />
-                )}
-              />
-              {/* Button to ask for AI suggestion for filed */}
-              <Button
-                size="small"
-                onClick={() => handleAI("employmentCircumstances")}
-                disabled={loadingAI}
-              >
-                {loadingAI && loadingStep == 2 ? (
-                  <CircularProgress size={18} />
-                ) : (
-                  t("helpWrite")
-                )}
-              </Button>
-            </Grid>
-
-            {/* Reason for Applying field*/}
-            <Grid size={{ xs: 12 }}>
-              <Controller
-                name="reasonForApplying"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={t("reasonForApplying")}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    error={!!errors.reasonForApplying}
-                    helperText={errors.reasonForApplying?.message as string}
-                  />
-                )}
-              />
-              {/* Button/link to ask for AI suggestion for filed */}
-              <Button
-                size="small"
-                onClick={() => handleAI("reasonForApplying")}
-                disabled={loadingAI}
-              >
-                {loadingAI && loadingStep == 3 ? (
-                  <CircularProgress size={18} />
-                ) : (
-                  t("helpWrite")
-                )}
-              </Button>
-            </Grid>
-          </Grid>
-
-          {/* Submit and Back button */}
-          <Box mt={4} display="flex" justifyContent="space-between">
-            <Button
-              variant="outlined"
-              onClick={onBack}
-              fullWidth={isMobile}
-              sx={{ mr: 2 }}
-              aria-label="back"
-            >
-              {t("back")}
-            </Button>
-
-            <Button type="submit" variant="contained" fullWidth={isMobile}>
-              {t("submit")}
-            </Button>
-          </Box>
-        </form>
+        {renderSituationDetailsForm()}
       </Box>
       {open ? (
         <AIHelperModal

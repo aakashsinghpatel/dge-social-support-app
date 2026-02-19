@@ -1,10 +1,9 @@
-// AIHelperModal.test.tsx
 import { fireEvent, render, screen } from "@testing-library/react";
 import AIHelperModal from "./AIHelperModal";
 
 // Mock useTranslation
 jest.mock("react-i18next", () => ({
-  useTranslation: () => ({ t: (key: string) => key }),
+  useTranslation: () => ({ translate: (key: string) => key }),
 }));
 
 // Test Suite for AIHelperModal component
@@ -36,7 +35,7 @@ describe("AIHelperModal", () => {
     expect(screen.getByText("accept")).toBeInTheDocument();
     expect(screen.getByText("discard")).toBeInTheDocument();
   });
-  //   Test case to check if onClose is called when discard button is clicked
+  // Test case to check if onClose is called when discard button is clicked
   test("calls onClose when discard button is clicked", () => {
     render(
       <AIHelperModal

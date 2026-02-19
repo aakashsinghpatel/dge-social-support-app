@@ -1,53 +1,51 @@
 import dayjs from "dayjs";
-import { z } from "zod";
+import { z as zod} from "zod";
 
 /*
  * zod validation schema for personal details form fiels
  */
-export const createPersonalDetailsSchema = (t: (k: string) => string) =>
-  z.object({
+export const createPersonalDetailsSchema = (translate: (key: string) => string) =>
+  zod.object({
     /*
      ** Name field validation
      * String, should be alphabetic and can contain space
      * minimum length 2 charater
-     * max length character
+     * max length character is 100
      */
-    name: z
+    name: zod
       .string()
       .trim()
-      .regex(/^[A-Za-z\s]+$/, t("validationError.personalInfo.name.invalid"))
-      .min(2, t("validationError.personalInfo.name.min"))
-      .max(100, t("validationError.personalInfo.name.max")),
+      .regex(/^[A-Za-z\s]+$/, translate("validationError.personalInfo.name.invalid"))
+      .min(2, translate("validationError.personalInfo.name.min"))
+      .max(100, translate("validationError.personalInfo.name.max")),
 
     /*
      ** nationalId field validation
      * String
      * UAE national id validation
-     * 15-ALphanumeric, start with 784-> 11 numbers -> end with sinle number
-     * minimum length 2 charater
-     * max length character
+     * 15-Alphanumeric, start with 784-> 11 numbers -> end with single number
      */
-    nationalId: z
+    nationalId: zod
       .string()
       .trim()
       .regex(
         /^[784][0-9]\d{4}[0-9]\d{7}[0-9]{1}$/,
-        t("validationError.personalInfo.nationalId.invalid"),
+        translate("validationError.personalInfo.nationalId.invalid"),
       ),
 
     /*
      ** dob field validation
-     * It should be valida date
+     * It should be validate date
      * Date should not be of future
-     * Age should be greater than 18
+     * Age should be greater than or equal to 18
      */
-    dob: z
+    dob: zod
       .any()
       .refine((value) => value && dayjs(value).isValid(), {
-        message: t("validationError.personalInfo.dob.required"),
+        message: translate("validationError.personalInfo.dob.required"),
       })
       .refine((value) => !dayjs(value).isAfter(dayjs()), {
-        message: t("validationError.personalInfo.dob.notFuture"),
+        message: translate("validationError.personalInfo.dob.notFuture"),
       })
       .refine(
         (value) => {
@@ -55,166 +53,166 @@ export const createPersonalDetailsSchema = (t: (k: string) => string) =>
           return age >= 18;
         },
         {
-          message: t("validationError.personalInfo.dob.validAge"),
+          message: translate("validationError.personalInfo.dob.validAge"),
         },
       ),
     /*
      ** Gender field validation
      * should be valid string value
      */
-    gender: z
+    gender: zod
       .string()
       .trim()
       .refine(
         (val) => {
           return !!val;
         },
-        { message: t("validationError.personalInfo.gender.invalid") },
+        { message: translate("validationError.personalInfo.gender.invalid") },
       ),
     /* Address field validation
-     * Any alphnumeric character expect special symbols
+     * Any alphanumeric character expect special symbols
      * Min should be 1 character
      * Max of 255 charater
      */
-    address: z
+    address: zod
       .string()
       .trim()
       .regex(
         /^[0-9A-Za-z\s]+$/,
-        t("validationError.personalInfo.address.invalid"),
+        translate("validationError.personalInfo.address.invalid"),
       )
-      .min(1, t("validationError.personalInfo.address.min"))
-      .max(255, t("validationError.personalInfo.address.max")),
+      .min(1, translate("validationError.personalInfo.address.min"))
+      .max(255, translate("validationError.personalInfo.address.max")),
     /* city field validation
-     * Any alphnumeric character expect special symbols
+     * Any alphanumeric character expect special symbols
      * Min should be 1 character
      */
-    city: z
+    city: zod
       .string()
       .trim()
-      .regex(/^[A-Za-z\s]+$/, t("validationError.personalInfo.city.invalid"))
-      .min(1, t("validationError.personalInfo.city.min")),
+      .regex(/^[A-Za-z\s]+$/, translate("validationError.personalInfo.city.invalid"))
+      .min(1, translate("validationError.personalInfo.city.min")),
     /* state field validation
-     * Any alphnumeric character expect special symbols
+     * Any alphabet character expect special symbols
      * Min should be 1 character
      */
-    state: z
+    state: zod
       .string()
       .trim()
-      .regex(/^[A-Za-z\s]+$/, t("validationError.personalInfo.state.invalid"))
-      .min(1, t("validationError.personalInfo.state.min")),
+      .regex(/^[A-Za-z\s]+$/, translate("validationError.personalInfo.state.invalid"))
+      .min(1, translate("validationError.personalInfo.state.min")),
     /* country field validation
-     * Any alphnumeric character expect special symbols
+     * Any alphabet character expect special symbols
      * Min should be 1 character
      */
-    country: z
+    country: zod
       .string()
       .trim()
-      .regex(/^[A-Za-z\s]+$/, t("validationError.personalInfo.country.invalid"))
-      .min(1, t("validationError.personalInfo.country.min")),
+      .regex(/^[A-Za-z\s]+$/, translate("validationError.personalInfo.country.invalid"))
+      .min(1, translate("validationError.personalInfo.country.min")),
     /* phone field validation
      * Valid UAT number
      * Start with either of(+971|971|0)(50|52|54|55|56|58) and followed by 7 numbers.
      */
-    phone: z
+    phone: zod
       .string()
       .regex(
         /^(?:\+971|971|0)(50|52|54|55|56|58)\d{7}$/,
-        t("validationError.personalInfo.phone.invalid"),
+        translate("validationError.personalInfo.phone.invalid"),
       ),
     /* eamil field validation
      * Valid email address
      */
-    email: z
+    email: zod
       .string()
       .trim()
-      .email(t("validationError.personalInfo.email.invalid")),
+      .email(translate("validationError.personalInfo.email.invalid")),
   });
 
 /*
- * zod validation schema for family finace details form fiels
+ * zod validation schema for family finace details form fields
  */
-export const createFamilyFinanceDetailsSchema = (t: (key: string) => string) =>
-  z.object({
+export const createFamilyFinanceDetailsSchema = (translate: (key: string) => string) =>
+  zod.object({
     /* marital status field validation
      * should be non empty string value
      */
-    maritalStatus: z
+    maritalStatus: zod
       .string()
       .trim()
       .refine((val) => !!val, {
-        message: t("validationError.financialInfo.maritalStatus.required"),
+        message: translate("validationError.financialInfo.maritalStatus.required"),
       }),
 
     /* dependents field validation
      * should be valid number, with minimum 0
      */
-    dependents: z.preprocess(
+    dependents: zod.preprocess(
       (val) => {
         if (val === "" || val === undefined) return undefined;
         return Number(val);
       },
-      z
-        .number({ message: t("validationError.financialInfo.dependents.min") })
-        .min(0, { message: t("validationError.financialInfo.dependents.min") }),
+      zod
+        .number({ message: translate("validationError.financialInfo.dependents.min") })
+        .min(0, { message: translate("validationError.financialInfo.dependents.min") }),
     ),
     /* employment status field validation
      * should be valid non-empty string
      */
-    employmentStatus: z
+    employmentStatus: zod
       .string()
       .trim()
       .refine((val) => !!val, {
-        message: t("validationError.financialInfo.employmentStatus.required"),
+        message: translate("validationError.financialInfo.employmentStatus.required"),
       }),
     /* Monthly income field validation
      *  should be valid number, with minimum 0
      */
-    monthlyIncome: z.preprocess(
+    monthlyIncome: zod.preprocess(
       (val) => {
         if (val === "" || val === undefined) return undefined;
         return Number(val);
       },
-      z
+      zod
         .number({
-          message: t("validationError.financialInfo.monthlyIncome.min"),
+          message: translate("validationError.financialInfo.monthlyIncome.min"),
         })
         .min(0, {
-          message: t("validationError.financialInfo.monthlyIncome.min"),
+          message: translate("validationError.financialInfo.monthlyIncome.min"),
         }),
     ),
     /* Housing status status field validation
      * should be valid non-empty string of min length 5
      */
-    housingStatus: z.string()
-      .min(5, t("validationError.financialInfo.housingStatus.required"),
+    housingStatus: zod.string()
+      .min(5, translate("validationError.financialInfo.housingStatus.required"),
     ),
   });
 
 /*
  * zod validation schema for Situation details form fiels
  */
-export const createSituationDetailsSchema = (t: (k: string) => string) =>
-  z.object({
+export const createSituationDetailsSchema = (translate: (key: string) => string) =>
+  zod.object({
     /* Financial situation field validation
      * String with minimum 10 character
      */
-    financialSituation: z
+    financialSituation: zod
       .string()
-      .min(10, t("validationError.situationInfo.financialSituation.invalid")),
+      .min(10, translate("validationError.situationInfo.financialSituation.invalid")),
     /* Employment circumstances field validation
      * String with minimum 10 character
      */
-    employmentCircumstances: z
+    employmentCircumstances: zod
       .string()
       .min(
         10,
-        t("validationError.situationInfo.employmentCircumstances.invalid"),
+        translate("validationError.situationInfo.employmentCircumstances.invalid"),
       ),
     /* Reason for applying field validation
      * String with minimum 10 character
      */
-    reasonForApplying: z
+    reasonForApplying: zod
       .string()
-      .min(10, t("validationError.situationInfo.reasonForApplying.invalid")),
+      .min(10, translate("validationError.situationInfo.reasonForApplying.invalid")),
   });

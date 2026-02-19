@@ -38,8 +38,8 @@ const renderWithStore = (component: React.ReactElement) => {
 
 /* Test Suites */
 describe("PersonalDetails - Validation + Submit", () => {
-  const t = (key: string) => key;
-  const schema = createPersonalDetailsSchema(t);
+  const translate = (key: string) => key;
+  const schema = createPersonalDetailsSchema(translate);
 
   /* Zod Unit Testing */
   it("should validate correct data using Zod schema", () => {
@@ -81,9 +81,7 @@ describe("PersonalDetails - Validation + Submit", () => {
   /* Form Validation test */
   it("should show validation errors when submitting empty form", async () => {
     renderWithStore(<PersonalDetails onNext={jest.fn()} />);
-
     fireEvent.click(screen.getByRole("button", { name: /next/i }));
-
     await waitFor(() => {
       expect(
         screen.getByText("validationError.personalInfo.name.invalid"),

@@ -30,7 +30,7 @@ function App() {
   }, []);
 
   /* createTheme-
-   * To handle LT & RTL theme
+   * To handle LTR & RTL theme
    * (Direction, alignment & position) base on language
    */
   const theme = useMemo(

@@ -38,14 +38,13 @@ class ErrorBoundary extends React.Component<Props, State> {
   * handleReload
   * To reaload the page
   */
-
   handleReload = () => {
     this.setState({ hasError: false, error: null });
     window.location.reload();
   };
 
   render() {
-    const { t } = this.props;
+    const { t:translate } = this.props;
 
     if (this.state.hasError) {
       return (
@@ -61,7 +60,7 @@ class ErrorBoundary extends React.Component<Props, State> {
             }}
           >
             <Typography variant="h4" fontWeight="bold" color="primary">
-              {t("error.boundry.heading")}
+              {translate("error.boundry.heading")}
             </Typography>
 
             <Button
@@ -70,7 +69,7 @@ class ErrorBoundary extends React.Component<Props, State> {
               sx={{ mt: 4 }}
               onClick={this.handleReload}
             >
-              {t("error.boundry.btnText")}
+              {translate("error.boundry.btnText")}
             </Button>
           </Box>
         </Container>

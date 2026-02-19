@@ -29,8 +29,8 @@ const renderWithStore = (component: React.ReactElement) => {
 
 /* Test Suites */
 describe("FamilyFinancialDetails - Validation + Submit", () => {
-  const t = (key: string) => key;
-  const schema = createFamilyFinanceDetailsSchema(t);
+  const translate = (key: string) => key;
+  const schema = createFamilyFinanceDetailsSchema(translate);
 
   /* Zod Unit Testing */
   it("should validate correct data using Zod schema", () => {

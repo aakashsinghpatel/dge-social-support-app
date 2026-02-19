@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
  */
 const Success = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const { t } = useTranslation();
+  const { t:translate } = useTranslation();
   const navigate = useNavigate();
 
   /*
@@ -44,13 +44,13 @@ const Success = () => {
           component="h1"
           fontWeight={600}
           gutterBottom
-          aria-label={t("success.heading")}
+          aria-label={translate("success.heading")}
         >
-          {t("success.heading")}
+          {translate("success.heading")}
         </Typography>
 
         <Typography variant="body1" color="text.secondary" mb={4}>
-          {t("success.message")}
+          {translate("success.message")}
         </Typography>
         <Button
           variant="contained"
@@ -58,7 +58,7 @@ const Success = () => {
           sx={{ mt: 4, background: "#2e7d32" }}
           onClick={() => navigate("/")}
         >
-          {t("backToHome")}
+          {translate("backToHome")}
         </Button>
       </Box>
     </Container>

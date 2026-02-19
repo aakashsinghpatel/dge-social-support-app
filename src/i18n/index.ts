@@ -4,7 +4,7 @@ import en from "./en.json";
 import ar from "./ar.json";
 
 /*
- * COnfiguration and initialization of i18n to support 'EN' and 'AR' language in app.
+ * Configuration and initialization of i18n to support 'EN' and 'AR' language in app.
  */
 i18n.use(initReactI18next).init({
   resources: {
